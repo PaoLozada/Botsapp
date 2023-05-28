@@ -72,7 +72,7 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
         print(val.text)
     data['Ktronix']=[referencia, valor]
     print(data)
-    return(mivariable)
+    return(data)
 
 
 
