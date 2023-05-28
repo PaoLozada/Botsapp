@@ -27,7 +27,21 @@ def createDriver() -> webdriver.Chrome:
 
     return myDriver
 
-def getBotSearchOffer(driver: webdriver.Chrome)-> dict:
+def getBotSearchOffer(driver: webdriver.Chrome) -> str:
+    print('ingresaaa')
+    driver.get("https://www.toolsqa.com/")
+    das = driver.current_url
+    print(das)
+    # Realizar acciones en la página
+    caption = driver.find_element(By.XPATH,"//div[@class='new-training__heading']")
+    time.sleep(1)
+    print(caption.text + 'holaaaaaaaaaaaa')
+    mivariable=caption.text
+    print('Exitoso')
+    return(mivariable)
+
+
+'''def getBotSearchOffer(driver: webdriver.Chrome)-> dict:
     driver.set_window_position(0, 0)
     driver.set_window_size(1280, 1024)
     data ={}
@@ -60,8 +74,21 @@ def getBotSearchOffer(driver: webdriver.Chrome)-> dict:
         valor.append(val.text)        
     data['Exito']=[referencia, valor]
     print(data)
-    return(data)
+    return(data)'''
 
+'''def getBotSearchOffer(driver: webdriver.Chrome)-> str:
+    driver.set_window_position(0, 0)
+    driver.set_window_size(1280, 1024)
+  
+   
+    driver.get("https://www.exito.com/")
+    time.sleep(5)
+    driver.maximize_window()
+    time.sleep(5)
+    menu = driver.find_element(By.XPATH,"//span[contains(.,'Super ofertas')]")
+    print(menu.text)
+
+    return(menu.tex)'''
 
 def doBackgroundTask(inp):
     print("Doing background task")
