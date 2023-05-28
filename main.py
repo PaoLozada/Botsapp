@@ -14,9 +14,9 @@ origins = [
     "http://localhost",
     "http://localhost:5500",
     "http://127.0.0.1:5500",
-    "https://paolozada.com"
+    "https://paolozada.com/"
     "http://127.0.0.1:8000",
-    "https://paolozadabot.up.railway.app",
+    "https://paolozadabot.up.railway.app/",
     # Agrega aquí los orígenes permitidos adicionales
 ]
 
