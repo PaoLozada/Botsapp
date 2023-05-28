@@ -1,12 +1,31 @@
 from fastapi import FastAPI, BackgroundTasks, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from uno import *
 import os
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
+from fastapi.responses import JSONResponse
+
 
 app = FastAPI()
 
+origins = [
+    "http://localhost",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "https:paolozada.com"
+    "http://127.0.0.1:8000",
+    # Agrega aquí los orígenes permitidos adicionales
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 SECRET = os.getenv("SECRET")
 
 class Msg(BaseModel):
@@ -19,12 +38,12 @@ async def root():
         html_content = file.read()
     return HTMLResponse(content=html_content, status_code=200)
 
-@app.get("/homepage")
+@app.get("/botSearchOffer")
 async def demo_get():
     driver=createDriver()
-    homepage = getGoogleHomepage(driver)
+    listOffers = getBotSearchOffer(driver)
     driver.close()
-    return homepage
+    return JSONResponse(content={"listOffer": listOffers})
 
 @app.post("/backgroundDemo")
 async def demo_post(inp: Msg, background_tasks: BackgroundTasks):

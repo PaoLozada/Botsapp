@@ -4,7 +4,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 import time
+import json
 
 mivariable =''
 def createDriver() -> webdriver.Chrome:
@@ -22,17 +27,41 @@ def createDriver() -> webdriver.Chrome:
 
     return myDriver
 
-def getGoogleHomepage(driver: webdriver.Chrome) -> str:
-    driver.get("https://www.toolsqa.com/")
-    das = driver.current_url
-    print(das)
-    # Realizar acciones en la página
-    caption = driver.find_element(By.XPATH,"//div[@class='new-training__heading']")
-    time.sleep(6)
-    print(caption.text + ' holaaaaaaaaaaaa')
-    mivariable=caption.text
-    print('Exitoso')
-    return(mivariable)
+def getBotSearchOffer(driver: webdriver.Chrome)-> dict:
+    driver.set_window_position(0, 0)
+    driver.set_window_size(1280, 1024)
+    data ={}
+    acciones = ActionChains(driver)
+    driver.get("https://www.exito.com/")
+    time.sleep(5)
+    menu = driver.find_element(By.ID,"category-menu")
+    menu.click()
+    time.sleep(8)
+    celulares = driver.find_element(By.ID,"undefined-nivel2-Celulares y accesorios")
+    acciones.move_to_element(celulares).perform()
+    smarp = driver.find_element(By.ID,'Categorías-nivel2-Smartphones')
+    smarp.click()
+    time.sleep(8)
+    order = driver.find_element(By.XPATH,'//span[@class="vtex-search-result-3-x-orderByText c-muted-2"]')   
+    order.click()
+    time.sleep(8)
+    moreH = driver.find_element(By.XPATH,'//button[contains(.,"Descuento")]')
+    moreH.click()
+    time.sleep(10)
+    referencia = []
+    valor =[]
+
+    for i in range(3) :
+        valRef=str(i+1)
+        valVal=str((i+1)*2)
+        ref = driver.find_element(By.XPATH,"(//span[@class='vtex-product-summary-2-x-productBrandName'])["+valRef+"]")
+        val = driver.find_element(By.XPATH,"(//span[contains(@class,'exito-vtex-components-4-x-currencyContainer')])["+valVal+"]")
+        referencia.append(ref.text)
+        valor.append(val.text)        
+    data['Exito']=[referencia, valor]
+    print(data)
+    return(data)
+
 
 def doBackgroundTask(inp):
     print("Doing background task")
