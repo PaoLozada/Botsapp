@@ -28,12 +28,23 @@ def createDriver() -> webdriver.Chrome:
     return myDriver
 
 def getBotSearchOffer(driver: webdriver.Chrome) -> str:
+    driver.set_window_position(0, 0)
+    driver.set_window_size(1280, 1024)
     print('ingresaaa')
+    acciones = ActionChains(driver)
     driver.get("https://www.toolsqa.com/")
     das = driver.current_url
     print(das)
     # Realizar acciones en la página
-    caption = driver.find_element(By.XPATH,"//div[@class='new-training__heading']")
+   
+    menu = driver.find_element(By.XPATH,"(//span[@class='bar-long'])[1]")
+    menu.click()
+    qa = driver.find_element(By.XPATH,"(//div[contains(.,'QA Practices')])[5]")
+    acciones.move_to_element(qa).perform()
+    testing = driver.find_element(By.XPATH,"(//a[@href='/software-testing/software-testing-tutorial/'])[3]")
+    testing.click()
+
+    caption = driver.find_element(By.XPATH,"(//h1[contains(@class,'title')])[1]")
     time.sleep(1)
     print(caption.text + 'holaaaaaaaaaaaa')
     mivariable=caption.text
