@@ -32,22 +32,46 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     driver.set_window_size(1280, 1024)
     print('ingresaaa')
     acciones = ActionChains(driver)
+    data ={}
     driver.get("https://www.ktronix.com/")
     das = driver.current_url
     print(das)
+    print('unooooooooooooooooooooooooooooooooooooo')
     cel = driver.find_element(By.XPATH,"(//a[@title='Celulares'])[1]")
     acciones.move_to_element(cel).perform()
     celu = driver.find_element(By.XPATH,"//a[@data-subcategory='Celulares']")
     celu.click()
-    #order = driver.find_element(By.XPATH,"//div[contains(@class,'float-select js-float-select js-float-group full-width active-click')]")
-    #order.click()
-    #driver.execute_script("window.scrollTo(0, 200")
-    #menor = driver.find_element(By.XPATH,"//li[contains(.,'Precio: menor a mayor')]")
-    #menor.click()
-    time.sleep(5)
+    time.sleep(10)
+    print('dosssssssssssssssssssssssssssssssssssssssssssssssss')
+    order = driver.find_element(By.XPATH,"//div[contains(@class,'float-select js-float-select js-float-group full-width active-click')]")
+    order.click()
+    driver.execute_script("window.scrollTo(0, 1100);")
+    print('tresssssssssssssssssssssssssssssssssssssssss')
+    menor = driver.find_element(By.XPATH,"//li[contains(.,'Precio: menor a mayor')]")
+    menor.click()
+    time.sleep(10)
+    print('cuatroooooooooooooooooooooooooooo')
     caption = driver.find_element(By.XPATH,"//div[@class='algolia-stats'][contains(.,'Mostrando 25 de 335 resultados')]")
     print(caption.text)
+    print('cincooooooooooooooooooooo')
     mivariable = caption.text
+    
+    time.sleep(10)
+    referencia = []
+    valor =[]
+
+    for i in range(5) :
+        print(i)
+        valRef=str(i+1)
+        #valVal=str((i+1)*2)
+        ref = driver.find_element(By.XPATH,"(//div[@class='product__item__information__brand'])["+valRef+"]")
+        val = driver.find_element(By.XPATH,"(//span[contains(@class,'price')])["+valRef+"]")
+        referencia.append(ref.text)
+        valor.append(val.text)
+        print (ref.text)
+        print(val.text)
+    data['Ktronix']=[referencia, valor]
+    print(data)
     return(mivariable)
 
 
