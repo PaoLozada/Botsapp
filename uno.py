@@ -29,41 +29,31 @@ def createDriver() -> webdriver.Chrome:
 
 def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     driver.set_window_position(0, 0)
-    driver.set_window_size(1280, 1024)
-    print('ingresaaa')
+    driver.set_window_size(1496, 1024)
     acciones = ActionChains(driver)
     data ={}
     driver.get("https://www.ktronix.com/")
-    das = driver.current_url
-    print(das)
-    print('unooooooooooooooooooooooooooooooooooooo')
     cel = driver.find_element(By.XPATH,"(//a[@title='Celulares'])[1]")
     acciones.move_to_element(cel).perform()
     celu = driver.find_element(By.XPATH,"//a[@data-subcategory='Celulares']")
     celu.click()
-    time.sleep(10)
-    print('dosssssssssssssssssssssssssssssssssssssssssssssssss')
-    order = driver.find_element(By.XPATH,"//div[contains(@class,'float-select js-float-select js-float-group full-width active-click')]")
+    time.sleep(2)
+    notifi = driver.find_element(By.XPATH,"//button[@class='button-primary js-cookie-notification-accept']")
+    notifi.click()
+    element = driver.find_element(By.XPATH,"//h3[contains(.,'Filtrar por capacidad de memoria')]")
+    driver.execute_script("window.scrollTo(751, 631);")
+    time.sleep(2)
+    order = driver.find_element(By.XPATH,"//div[@class='float-select js-float-select js-float-group full-width active-click']")
     order.click()
-    driver.execute_script("window.scrollTo(0, 1100);")
-    print('tresssssssssssssssssssssssssssssssssssssssss')
     menor = driver.find_element(By.XPATH,"//li[contains(.,'Precio: menor a mayor')]")
     menor.click()
-    time.sleep(10)
-    print('cuatroooooooooooooooooooooooooooo')
-    caption = driver.find_element(By.XPATH,"//div[@class='algolia-stats'][contains(.,'Mostrando 25 de 335 resultados')]")
-    print(caption.text)
-    print('cincooooooooooooooooooooo')
-    mivariable = caption.text
-    
-    time.sleep(10)
+    time.sleep(5)
     referencia = []
     valor =[]
 
-    for i in range(5) :
+    for i in range(3) :
         print(i)
         valRef=str(i+1)
-        #valVal=str((i+1)*2)
         ref = driver.find_element(By.XPATH,"(//div[@class='product__item__information__brand'])["+valRef+"]")
         val = driver.find_element(By.XPATH,"(//span[contains(@class,'price')])["+valRef+"]")
         referencia.append(ref.text)
@@ -72,6 +62,12 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
         print(val.text)
     data['Ktronix']=[referencia, valor]
     print(data)
+    # Convertir el diccionario a JSON
+    #json_datos = json.dumps(data)
+
+    # Imprimir el JSON
+    #print(json_datos)
+
     return(data)
 
 
