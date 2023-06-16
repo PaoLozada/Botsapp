@@ -1,7 +1,7 @@
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from appEjecution import *
+from appExecution import *
 import os
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
