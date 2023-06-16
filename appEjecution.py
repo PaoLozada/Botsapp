@@ -65,28 +65,37 @@ def getBotSearchNewProducts(driver: webdriver.Chrome,  category,  itemOption) ->
     driver.set_window_size(1496, 1024)
     driver.get("https://co.totto.com/")
     # Esperar a que la página cargue completamente
+    print('unooooooo')
     driver.implicitly_wait(10)
+    print('dosssssssssssss')
     menu=driver.find_element(By.ID,'menu_on')
     menu.click()
+    print('tresssssssss')
     newCollection=driver.find_element(By.XPATH,"//a[contains(.,'Nueva colección')]")
     newCollection.click()
-    time.sleep(5)
+    time.sleep(15)
+    print('cuatroooooooooooo')
     selector = "2"
     itemSelect= driver.find_element(By.XPATH,"(//img[@class=' b-error'])["+selector+"]")
     itemSelect.click()
     filter = category
+    print('cincooooooooooooooooooooooo')
     fil = driver.find_element(By.XPATH,"(//h5[contains(.,'"+filter+"')])[2]")
     fil.click()
     filterSelect=itemOption
     color = driver.find_element(By.XPATH,"//a[@title='"+filterSelect+"']")
     color.click()
+    print('seisssssssssssssss')
     items=[]
     data ={}
+    time.sleep(15)
     ref= driver.find_elements(By.XPATH,"//div[@class='_product-info']/h3/span[1]")
+    print('sieteeeeeeeeeeeee')
     for i in ref:
         print (i.text)
         items.append(i.text)
     data['Totto']=items
+    print('ochoooooooooooooo')
     return(data)
 
 def doBackgroundTask(inp):
