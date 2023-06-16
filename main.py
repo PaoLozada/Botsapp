@@ -1,7 +1,7 @@
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from uno import *
+from appEjecution import *
 import os
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
@@ -45,6 +45,13 @@ async def demo_get():
     listOffers = getBotSearchOffer(driver)
     driver.close()
     return JSONResponse(content={"listOffer": listOffers})
+
+@app.get("/botSearchNewProducts")
+async def demo_get():
+    driver=createDriver()
+    listProducts = getBotSearchNewProducts(driver, "Color", "Gris")
+    driver.close()
+    return JSONResponse(content={"Products": listProducts})
 
 @app.post("/backgroundDemo")
 async def demo_post(inp: Msg, background_tasks: BackgroundTasks):

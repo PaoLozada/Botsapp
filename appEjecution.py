@@ -20,8 +20,6 @@ def createDriver() -> webdriver.Chrome:
     
     prefs = {"profile.managed_default_content_settings.images":2}
     chrome_options.headless = True
-
-
     chrome_options.add_experimental_option("prefs", prefs)
     myDriver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
@@ -40,7 +38,6 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     time.sleep(2)
     notifi = driver.find_element(By.XPATH,"//button[@class='button-primary js-cookie-notification-accept']")
     notifi.click()
-    element = driver.find_element(By.XPATH,"//h3[contains(.,'Filtrar por capacidad de memoria')]")
     driver.execute_script("window.scrollTo(751, 631);")
     time.sleep(2)
     order = driver.find_element(By.XPATH,"//div[@class='float-select js-float-select js-float-group full-width active-click']")
@@ -58,20 +55,39 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
         val = driver.find_element(By.XPATH,"(//span[contains(@class,'price')])["+valRef+"]")
         referencia.append(ref.text)
         valor.append(val.text)
-        print (ref.text)
-        print(val.text)
     data['Ktronix']=[referencia, valor]
     print(data)
-    # Convertir el diccionario a JSON
-    #json_datos = json.dumps(data)
-
-    # Imprimir el JSON
-    #print(json_datos)
-
     return(data)
 
 
-
+def getBotSearchNewProducts(driver: webdriver.Chrome,  category,  itemOption) -> str:
+    driver.set_window_position(0, 0)
+    driver.set_window_size(1496, 1024)
+    driver.get("https://co.totto.com/")
+    # Esperar a que la página cargue completamente
+    driver.implicitly_wait(10)
+    menu=driver.find_element(By.ID,'menu_on')
+    menu.click()
+    newCollection=driver.find_element(By.XPATH,"//a[contains(.,'Nueva colección')]")
+    newCollection.click()
+    time.sleep(5)
+    selector = "2"
+    itemSelect= driver.find_element(By.XPATH,"(//img[@class=' b-error'])["+selector+"]")
+    itemSelect.click()
+    filter = category
+    fil = driver.find_element(By.XPATH,"(//h5[contains(.,'"+filter+"')])[2]")
+    fil.click()
+    filterSelect=itemOption
+    color = driver.find_element(By.XPATH,"//a[@title='"+filterSelect+"']")
+    color.click()
+    items=[]
+    data ={}
+    ref= driver.find_elements(By.XPATH,"//div[@class='_product-info']/h3/span[1]")
+    for i in ref:
+        print (i.text)
+        items.append(i.text)
+    data['Totto']=items
+    return(data)
 
 def doBackgroundTask(inp):
     print("Doing background task")
