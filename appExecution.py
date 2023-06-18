@@ -54,6 +54,7 @@ def getBotSearchNewProducts(driver: webdriver.Chrome, category, itemOption) -> s
     Actions.open_url(driver, "https://co.totto.com/")
     Actions.wait(10)
     Actions.click_element(driver, TottoHome.menu_on)
+    Actions.wait(4)
     Actions.click_element(driver, TottoHome.new_collection)
     Actions.wait(5)
     selector = "2"
