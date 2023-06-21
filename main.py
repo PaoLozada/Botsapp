@@ -47,9 +47,9 @@ async def demo_get():
     return JSONResponse(content={"listOffer": listOffers})
 
 @app.get("/botSearchNewProducts")
-async def demo_get(categorys: str, options: str):
+async def demo_get(selectItem: str, categorys: str, options: str):
     driver=createDriver()
-    listProducts = getBotSearchNewProducts(driver, categorys, options)
+    listProducts = getBotSearchNewProducts(driver, selectItem, categorys, options)
     driver.close()
     return JSONResponse(content={"Products": listProducts})
 

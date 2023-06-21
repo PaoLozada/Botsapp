@@ -29,7 +29,7 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     Actions.move_to_element(driver, KatroHome.cel)
     Actions.click_element(driver, KatroHome.celu)  
     Actions.wait(3)
-    Actions.click_element(driver, KatroHome.notifi)  
+   #Actions.click_element(driver, KatroHome.notifi)  
     Actions.scroll_to(driver,751,631)
     Actions.wait(3) 
     Actions.click_element(driver, KatroCell.order) 
@@ -44,11 +44,10 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
         referencia.append(ref)
         valor.append(val)
     data['Ktronix']=[referencia, valor]
-    print(data)
     return(data)
 
 
-def getBotSearchNewProducts(driver: webdriver.Chrome, category, itemOption) -> str:
+def getBotSearchNewProducts(driver: webdriver.Chrome, selectItem, category, itemOption) -> str:
     Actions.set_window_position(driver, 0, 0)
     Actions.set_window_size(driver, 1496, 1024)
     Actions.open_url(driver, "https://co.totto.com/")
@@ -57,8 +56,7 @@ def getBotSearchNewProducts(driver: webdriver.Chrome, category, itemOption) -> s
     Actions.wait(4)
     Actions.click_element(driver, TottoHome.new_collection)
     Actions.wait(5)
-    selector = "2"
-    item_select = TottoHome.item_select(selector)
+    item_select = TottoHome.item_select(selectItem)
     Actions.click_element(driver, item_select)
     filter_category = TottoHome.filter_category(category)
     Actions.click_element(driver, filter_category)
