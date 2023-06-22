@@ -64,6 +64,7 @@ def getBotSearchNewProducts(driver: webdriver.Chrome, selectItem, category, item
     Actions.wait(5)
     filter_option = TottoHome.filter_option(itemOption)
     Actions.click_element(driver, filter_option)
+    Actions.wait(5)
     items = Actions.get_texts(driver, TottoHome.product_info)
     data = {'Totto': items}
     return data
