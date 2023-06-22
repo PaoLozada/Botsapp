@@ -27,6 +27,7 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     Actions.open_url(driver, "https://www.ktronix.com/")
     Actions.wait(5)
     Actions.move_to_element(driver, KatroHome.cel)
+    Actions.wait(5)
     Actions.click_element(driver, KatroHome.celu)  
     Actions.wait(3)
    #Actions.click_element(driver, KatroHome.notifi)  
