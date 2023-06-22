@@ -35,14 +35,15 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     Actions.click_element(driver, KatroCell.order) 
     Actions.click_element(driver, KatroCell.menor)
     Actions.wait(5)  
-
+    valPrice=1
     for i in range(3) :
         print(i)
         valRef=str(i+1)
         ref = Actions.get_text(driver, KatroCell.ref_element(valRef))
-        val = Actions.get_text(driver, KatroCell.val_element(valRef))
+        val = Actions.get_text(driver, KatroCell.val_element(str(valPrice)))
         referencia.append(ref)
         valor.append(val)
+        valPrice+=2
     data['Ktronix']=[referencia, valor]
     return(data)
 

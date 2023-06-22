@@ -16,4 +16,4 @@ class TottoHome ():
     
     @staticmethod
     def filter_option(fOption):
-        return (By.XPATH, "//a[@title='"+fOption+"']")
+        return (By.XPATH, "//a[contains(.,'"+fOption+"')]")
