@@ -25,7 +25,7 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     referencia = []
     valor =[]
     Actions.open_url(driver, "https://www.ktronix.com/")
-    Actions.wait(2)
+    Actions.wait(5)
     Actions.move_to_element(driver, KatroHome.cel)
     Actions.click_element(driver, KatroHome.celu)  
     Actions.wait(3)
