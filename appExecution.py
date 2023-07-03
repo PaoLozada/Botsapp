@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support import expected_conditions as EC
 from page_katro import *
 from page_totto import *
+from page_comput import *
 from actions import *
 
 mivariable =''
@@ -69,6 +70,29 @@ def getBotSearchNewProducts(driver: webdriver.Chrome, selectItem, category, item
     items = Actions.get_texts(driver, TottoHome.product_info)
     data = {'Totto': items}
     return data
+
+def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str:
+    Actions.set_window_position(driver, 0, 0)
+    Actions.set_window_size(driver, 1496, 1024)
+    data ={}
+    jobs_cap,places_cap,how_cap =[],[],[]
+    Actions.open_url(driver,"https://co.computrabajo.com/")
+    Actions.wait(10)
+    Actions.send_k(driver,CompuHome.location_input,city)
+    time.sleep(2)
+    Actions.click_element(driver, CompuHome.select_position)
+    Actions.send_k(driver,CompuHome.position_input,filter_job)
+    time.sleep(2)
+    Actions.click_element(driver, CompuHome.select_position)
+    Actions.click_element(driver, CompuHome.search_button)
+    Actions.click_element(driver, CompuVacancies.option_date)
+    Actions.click_element(driver, CompuVacancies.filt_date(filter_date))
+    jobs_cap = Actions.get_texts(driver, CompuVacancies.jobs)
+    places_cap = Actions.get_texts(driver, CompuVacancies.places)
+    how_cap= Actions.get_texts(driver, CompuVacancies.how_Long)
+    data ["Computrabajo"]= [jobs_cap,places_cap,how_cap]
+    return(data)
+
 
 def doBackgroundTask(inp):
     print("Doing background task")

@@ -1,6 +1,6 @@
 import time
 from selenium.webdriver.common.action_chains import ActionChains
-
+from selenium.webdriver.common.keys import Keys
 
 class Actions:
 
@@ -44,3 +44,7 @@ class Actions:
     def get_text(driver, selector):
         element = driver.find_element(*selector)
         return [element.text]
+    @staticmethod
+    def send_k(driver, selector,my_keys):
+        element = driver.find_element(*selector)
+        element.send_keys(my_keys)

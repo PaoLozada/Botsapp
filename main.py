@@ -53,6 +53,13 @@ async def demo_get(selectItem: str, categorys: str, options: str):
     driver.close()
     return JSONResponse(content={"Products": listProducts})
 
+@app.get("/botSearchJobs")
+async def demo_get(city: str, filter_date: str, filter_job: str):
+    driver=createDriver()
+    listJobs = getBotSearchJob(driver, city, filter_date, filter_job)
+    driver.close()
+    return JSONResponse(content={"Products": listJobs})
+
 @app.post("/backgroundDemo")
 async def demo_post(inp: Msg, background_tasks: BackgroundTasks):
     
