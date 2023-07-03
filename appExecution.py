@@ -76,7 +76,7 @@ def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str
     Actions.set_window_size(driver, 1496, 1024)
     data ={}
     Actions.open_url(driver,"https://co.computrabajo.com/")
-    Actions.wait(20)
+    Actions.wait(10)
     Actions.send_k(driver,CompuHome.location_input,city)
     Actions.wait(2)
     Actions.click_element(driver, CompuHome.select_position)
