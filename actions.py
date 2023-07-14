@@ -30,6 +30,13 @@ class Actions:
     def click_element(driver, selector):
         element = driver.find_element(*selector)
         element.click()
+        
+    @staticmethod
+    def if_click_element(driver, selector):
+        element = driver.find_elements(*selector)
+        if (len(element)!=0 ):
+            if( element[0].is_displayed() and element[0].is_enabled()):
+                element[0].click()
 
     @staticmethod
     def wait(seconds):

@@ -1,7 +1,5 @@
 ARG PORT=443
 
-
-
 FROM cypress/browsers:latest
 
 

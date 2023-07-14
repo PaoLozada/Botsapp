@@ -7,7 +7,7 @@ from page_totto import *
 from page_comput import *
 from actions import *
 
-mivariable =''
+
 def createDriver() -> webdriver.Chrome:
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")
@@ -30,8 +30,8 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     Actions.move_to_element(driver, KatroHome.cel)
     Actions.wait(5)
     Actions.click_element(driver, KatroHome.celu)  
-    Actions.wait(3)
-   #Actions.click_element(driver, KatroHome.notifi)  
+    Actions.wait(3)  
+    Actions.if_click_element(driver, KatroHome.notifi) 
     Actions.scroll_to(driver,751,631)
     Actions.wait(3) 
     Actions.click_element(driver, KatroCell.order) 
@@ -55,12 +55,13 @@ def getBotSearchNewProducts(driver: webdriver.Chrome, selectItem, category, item
     Actions.set_window_size(driver, 1496, 1024)
     Actions.open_url(driver, "https://co.totto.com/")
     Actions.wait(10)
+    Actions.if_click_element(driver, TottoHome.close_adv) 
     Actions.click_element(driver, TottoHome.menu_on)
     Actions.wait(4)
     item_select = TottoHome.item_select(selectItem)
     Actions.click_element(driver, item_select)
     Actions.wait(5) 
-    #Actions.click_element(driver, TottoHome.close_adv)       
+    Actions.if_click_element(driver, TottoHome.close_adv)       
     filter_category = TottoHome.filter_category(category)
     Actions.click_element(driver, filter_category)
     Actions.wait(5)
