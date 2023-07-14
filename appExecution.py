@@ -7,6 +7,7 @@ from page_totto import *
 from page_comput import *
 from actions import *
 
+mivariable =''
 
 def createDriver() -> webdriver.Chrome:
     chrome_options = webdriver.ChromeOptions()
