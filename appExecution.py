@@ -14,12 +14,12 @@ def createDriver() -> webdriver.Chrome:
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")    
-    chrome_options.add_argument("user-agent=Chrome/100.0.1000.0")
+    #chrome_options.add_argument("user-agent=Chrome/100.0.1000.0")
     prefs = {"profile.managed_default_content_settings.images":2}
     chrome_options.headless = True
     chrome_options.add_experimental_option("prefs", prefs)
-    myDriver = webdriver.Chrome(options=chrome_options)
-    #myDriver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    #myDriver = webdriver.Chrome(options=chrome_options)
+    myDriver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     return myDriver
   
 def getBotSearchOffer(driver: webdriver.Chrome) -> str:
