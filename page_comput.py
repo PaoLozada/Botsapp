@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 
 class CompuHome ():
     
-    #location_input = (By.ID, "place-search-input")    
     location_input = (By.ID, "place-search-input") 
     select_position= (By.XPATH,"(//ul[@class='autocomplete']/li)")
     position_input = (By.ID, "prof-cat-search-input")

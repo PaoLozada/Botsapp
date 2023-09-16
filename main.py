@@ -19,6 +19,7 @@ origins = [
     "https://paolozada.com/"
     "http://127.0.0.1:8000",
     "https://paolozadabot.up.railway.app/",
+    "https://botpaolozada.onrender.com/",
     # Agrega aquí los orígenes permitidos adicionales
 ]
 
