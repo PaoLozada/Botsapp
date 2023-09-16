@@ -10,6 +10,8 @@ from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
+
+
 origins = [
     "http://localhost",
     "http://localhost:5500",

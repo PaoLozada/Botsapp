@@ -8,17 +8,20 @@ from page_comput import *
 from actions import *
 
 
+
 def createDriver() -> webdriver.Chrome:
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")    
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.1000.0 Safari/537.36")
     prefs = {"profile.managed_default_content_settings.images":2}
     chrome_options.headless = True
     chrome_options.add_experimental_option("prefs", prefs)
+    #myDriver = webdriver.Chrome(options=chrome_options)
     myDriver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     return myDriver
-
+  
 def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     Actions.set_window_position(driver, 0, 0)
     Actions.set_window_size(driver, 1496, 1024)
@@ -77,7 +80,7 @@ def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str
     Actions.set_window_size(driver, 1496, 1024)
     data ={}
     Actions.open_url(driver,"https://co.computrabajo.com/")
-    Actions.wait(10)
+    Actions.wait(10)    
     Actions.send_k(driver,CompuHome.location_input,city)
     Actions.wait(2)
     Actions.click_element(driver, CompuHome.select_position)
