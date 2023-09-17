@@ -64,11 +64,11 @@ async def demo_get(city: str, filter_date: str, filter_job: str):
     return JSONResponse(content={"Jobs": listJobs})
 
 @app.get("/botSearchViews")
-async def demo_get():
-    driver=createDriver()
-    listViews = getBotSearchViews(driver)
+async def demo_get(name_video: str):
+    driver = createDriver()
+    views = getBotSearchViews(driver, name_video)
     driver.close()
-    return JSONResponse(content={"Views": listViews})
+    return JSONResponse(content={"Views": views})
 
 @app.post("/backgroundDemo")
 async def demo_post(inp: Msg, background_tasks: BackgroundTasks):

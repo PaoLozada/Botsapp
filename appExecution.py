@@ -97,22 +97,22 @@ def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str
     data ["Computrabajo"]= [jobs_cap,places_cap,how_cap]
     return(data)
 
-def getBotSearchViews(driver: webdriver.Chrome) -> str:
+def getBotSearchViews(driver: webdriver.Chrome, video_name) -> str:
     Actions.set_window_position(driver, 0, 0)
     Actions.set_window_size(driver, 1496, 1024)
-    data ={}
-    video_name='¿Cómo seríamos?'
+    data = {}
     Actions.open_url(driver, "https://www.youtube.com/")
     Actions.wait(5)
-    Actions.send_k(driver,YtbHome.search_box,video_name)
-    Actions.return_k(driver,YtbHome.search_box)
+    Actions.send_k(driver, YtbHome.search_box, video_name)
+    Actions.return_k(driver, YtbHome.search_box)
     Actions.wait(5)
     Actions.click_element(driver, YtbVideo.val_views(video_name))
     Actions.wait(5)
-    video_views= Actions.get_text(driver,YtbVideo.views)
-    print(video_views)  
-    data['Youtube']=[video_views]
-    return(data)
+    video_views = Actions.get_text(driver, YtbVideo.views)
+    print(video_views)
+    data['Youtube'] = [video_views]
+    return data
+
 
 
 def doBackgroundTask(inp):
