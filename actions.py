@@ -55,3 +55,8 @@ class Actions:
     def send_k(driver, selector,my_keys):
         element = driver.find_element(*selector)
         element.send_keys(my_keys)
+
+    @staticmethod
+    def return_k(driver, selector):
+        element = driver.find_element(*selector)
+        element.send_keys(Keys.RETURN)

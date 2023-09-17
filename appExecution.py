@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from page_katro import *
 from page_totto import *
 from page_comput import *
+from page_youtube import *
 from actions import *
 
 
@@ -100,25 +101,17 @@ def getBotSearchViews(driver: webdriver.Chrome) -> str:
     Actions.set_window_position(driver, 0, 0)
     Actions.set_window_size(driver, 1496, 1024)
     data ={}
-    referencia = []
-    valor =[]
     video_name='¿Cómo seríamos?'
     Actions.open_url(driver, "https://www.youtube.com/")
     Actions.wait(5)
-   # Encontrar el campo de búsqueda y enviar la palabra clave
-    search_box = driver.find_element(By.XPATH,"//input[@name='search_query']")
-    search_box.send_keys(video_name)
-    search_box.send_keys(Keys.RETURN)
-    time.sleep(10)
-    # Localizar el elemento que contiene la parte del texto utilizando XPath
-    element = driver.find_element(By.XPATH,"//yt-formatted-string[contains(@aria-label, '{}')]".format(video_name))
-    element.click()
-    time.sleep(10)
-    #driver.implicitly_wait(10)
-    views = driver.find_element(By.XPATH,"(//span[contains(@class,'style-scope yt-formatted-string')])[1]")
-    texto= views.text
-    print(texto)  
-    data['Youtube']=[views.text]
+    Actions.send_k(driver,YtbHome.search_box,video_name)
+    Actions.return_k(driver,YtbHome.search_box)
+    Actions.wait(5)
+    Actions.click_element(driver, YtbVideo.val_views(video_name))
+    Actions.wait(5)
+    video_views= Actions.get_text(driver,YtbVideo.views)
+    print(video_views)  
+    data['Youtube']=[video_views]
     return(data)
 
 
