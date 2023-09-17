@@ -96,6 +96,31 @@ def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str
     data ["Computrabajo"]= [jobs_cap,places_cap,how_cap]
     return(data)
 
+def getBotSearchViews(driver: webdriver.Chrome) -> str:
+    Actions.set_window_position(driver, 0, 0)
+    Actions.set_window_size(driver, 1496, 1024)
+    data ={}
+    referencia = []
+    valor =[]
+    video_name='¿Cómo seríamos?'
+    Actions.open_url(driver, "https://www.youtube.com/")
+    Actions.wait(5)
+   # Encontrar el campo de búsqueda y enviar la palabra clave
+    search_box = driver.find_element(By.XPATH,"//input[@name='search_query']")
+    search_box.send_keys(video_name)
+    search_box.send_keys(Keys.RETURN)
+    time.sleep(10)
+    # Localizar el elemento que contiene la parte del texto utilizando XPath
+    element = driver.find_element(By.XPATH,"//yt-formatted-string[contains(@aria-label, '{}')]".format(video_name))
+    element.click()
+    time.sleep(10)
+    #driver.implicitly_wait(10)
+    views = driver.find_element(By.XPATH,"(//span[contains(@class,'style-scope yt-formatted-string')])[1]")
+    texto= views.text
+    print(texto)  
+    data['Youtube']=[views.text]
+    return(data)
+
 
 def doBackgroundTask(inp):
     print("Doing background task")
