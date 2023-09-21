@@ -1,13 +1,11 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support import expected_conditions as EC
+from unidecode import unidecode
 from page_katro import *
 from page_totto import *
 from page_comput import *
 from page_youtube import *
 from actions import *
-
 
 
 def createDriver() -> webdriver.Chrome:
@@ -81,7 +79,7 @@ def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str
     Actions.set_window_size(driver, 1496, 1024)
     data ={}
     Actions.open_url(driver,"https://co.computrabajo.com/")
-    Actions.wait(10)    
+    Actions.wait(10)   
     Actions.send_k(driver,CompuHome.location_input,city)
     Actions.wait(2)
     Actions.click_element(driver, CompuHome.select_position)
@@ -101,14 +99,22 @@ def getBotSearchViews(driver: webdriver.Chrome, video_name) -> str:
     Actions.set_window_position(driver, 0, 0)
     Actions.set_window_size(driver, 1496, 1024)
     data = {}
+    current=False
+    search_query = unidecode(video_name).lower()
     Actions.open_url(driver, "https://www.youtube.com/")
     Actions.wait(5)
-    Actions.send_k(driver, YtbHome.search_box, video_name)
+    Actions.send_k(driver, YtbHome.search_box, search_query)
     Actions.return_k(driver, YtbHome.search_box)
     Actions.wait(5)
-    Actions.click_element(driver, YtbVideo.val_views(video_name))
+    videos_current = Actions.get_elements(driver, YtbHome.name_video)
+    for i in videos_current:
+        current_name= unidecode(i.text).lower()
+        if search_query in current_name:
+            current=True
+            i.click()
+            break
     Actions.wait(5)
-    video_views = Actions.get_text(driver, YtbVideo.views)
+    video_views = Actions.get_text(driver, YtbVideo.views) if current else 'NO EXISTE'
     print(video_views)
     data['Youtube'] = [video_views]
     return data

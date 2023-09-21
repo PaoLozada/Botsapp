@@ -15,6 +15,12 @@ class Actions:
         acciones.move_to_element(elementMove).perform()
     
     @staticmethod
+    def move_select_down(driver):
+        acciones = ActionChains(driver)
+        acciones.send_keys(Keys.DOWN).perform()
+        acciones.send_keys(Keys.RETURN).perform()
+    
+    @staticmethod
     def scroll_to(driver, x, y):
         driver.execute_script("window.scrollTo({}, {});".format(x, y))
 
@@ -60,3 +66,8 @@ class Actions:
     def return_k(driver, selector):
         element = driver.find_element(*selector)
         element.send_keys(Keys.RETURN)
+    
+    @staticmethod
+    def get_elements(driver, selector):
+        elements = driver.find_elements(*selector)
+        return elements
