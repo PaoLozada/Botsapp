@@ -4,6 +4,8 @@ WORKDIR /app
 
 # Instalar Python y pip
 RUN apt-get update && apt-get install -y python3 python3-pip
+RUN apt-get update --allow-insecure-repositories && \
+    apt-get install -y python3 python3-pip --allow-unauthenticated
 
 # Copiar dependencias
 COPY requirements.txt .
