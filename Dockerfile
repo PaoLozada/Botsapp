@@ -6,8 +6,8 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y python3 python3-pip
 
-# ACTUALIZAR HERRAMIENTAS DE BUILD
-RUN pip3 install --upgrade pip setuptools wheel --break-system-packages
+# actualizar herramientas (sin wheel)
+RUN pip3 install --upgrade pip setuptools --break-system-packages
 
 COPY requirements.txt .
 
