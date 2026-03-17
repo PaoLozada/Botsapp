@@ -124,29 +124,42 @@ def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str
 
 def getBotSearchViews(driver: webdriver.Chrome, video_name) -> str:
     data = {}
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 15)
 
     search_query = unidecode(video_name).lower()
 
     driver.get("https://www.youtube.com/")
 
-    # Manejar popup
+    # Manejar popup robusto
     try:
-        btn = wait.until(EC.element_to_be_clickable(YtbHome.pop_up))
-        btn.click()
+        buttons = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//button")))
+        for btn in buttons:
+            if "acept" in btn.text.lower() or "agree" in btn.text.lower():
+                btn.click()
+                break
     except:
         pass
 
+    
     search_box = wait.until(EC.presence_of_element_located(YtbHome.search_box))
     search_box.send_keys(search_query)
     search_box.send_keys(Keys.RETURN)
 
+    
     videos = wait.until(EC.presence_of_all_elements_located(YtbHome.name_video))
 
     current = False
 
     for video in videos:
         title = unidecode(video.text).lower()
+
+        try:
+            url = video.get_attribute("href")
+            if "/shorts/" in url:
+                continue
+        except:
+            continue
+
         if search_query in title:
             video.click()
             current = True
@@ -156,9 +169,19 @@ def getBotSearchViews(driver: webdriver.Chrome, video_name) -> str:
         data['Youtube'] = ['NO EXISTE']
         return data
 
-    views = wait.until(EC.presence_of_element_located(YtbVideo.views)).text
+   
+    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
 
-    data['Youtube'] = [views]
+    
+    for i in range(2):
+        try:
+            views = wait.until(EC.presence_of_element_located(YtbVideo.views)).text
+            data['Youtube'] = [views]
+            return data
+        except:
+            time.sleep(2)
+
+    data['Youtube'] = ['NO EXISTE']
     return data
 
 

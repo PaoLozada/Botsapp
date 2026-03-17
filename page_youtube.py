@@ -6,7 +6,7 @@ class YtbHome:
     pop_up = (By.XPATH, "//button//span[contains(text(),'Aceptar')]")
     
 class YtbVideo:
-    views = (By.XPATH,"//span[contains(text(),'visualizaciones')]")
+    views = (By.XPATH, "//span[contains(@class,'view-count')]")
     
    
     
