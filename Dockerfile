@@ -1,5 +1,3 @@
-ARG PORT=8080
-
 FROM cypress/browsers:latest
 
 WORKDIR /app
