@@ -1,11 +1,9 @@
-FROM cypress/browsers:node18.12.0-chrome107
+FROM cypress/browsers:latest
 
 WORKDIR /app
 
 # Instalar Python y pip
-
-RUN apt-get update --allow-insecure-repositories && \
-    apt-get install -y python3 python3-pip --allow-unauthenticated
+RUN apt-get update && apt-get install -y python3 python3-pip
 
 # Copiar dependencias
 COPY requirements.txt .
