@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from unidecode import unidecode
+from selenium.webdriver.chrome.options import Options
 from page_katro import *
 from page_totto import *
 from page_comput import *
@@ -8,21 +9,40 @@ from page_youtube import *
 from actions import *
 
 
-def createDriver() -> webdriver.Chrome:
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
+import time
+
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+def createDriver():
+    for i in range(2):
+        try:
+            return _createDriver()
+        except Exception as e:
+            print(f"Intento {i+1} falló:", e)
+            time.sleep(2)
+    raise Exception("No se pudo iniciar Chrome")
+
+def _createDriver():
+    chrome_options = Options()
+    
+    chrome_options.add_argument("--headless=new")
+    # Principales
     chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")    
-    chrome_options.add_argument("user-agent=Chrome/100.0.1000.0")
-    prefs = {"profile.managed_default_content_settings.images":2}
-    chrome_options.headless = True
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--remote-debugging-port=9222")
+    
+    chrome_options.add_argument("user-agent=Chrome/120.0.0.0")
+    
+    prefs = {
+        "profile.managed_default_content_settings.images": 2
+    }
     chrome_options.add_experimental_option("prefs", prefs)
-    myDriver = webdriver.Chrome(options=chrome_options)
-    # Alternativa con webdriver_manager si no tienes chromedriver instalado:
-    # from webdriver_manager.chrome import ChromeDriverManager
-    # from selenium.webdriver.chrome.service import Service 
-    #myDriver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-    return myDriver
+
+    return webdriver.Chrome(options=chrome_options)
   
 def getBotSearchOffer(driver: webdriver.Chrome) -> str:
     Actions.set_window_position(driver, 0, 0)

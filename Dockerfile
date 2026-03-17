@@ -1,4 +1,4 @@
-FROM cypress/browsers:latest
+FROM cypress/browsers:node18.12.0-chrome107
 
 WORKDIR /app
 
