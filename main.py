@@ -46,28 +46,28 @@ async def root():
 async def demo_get():
     driver=createDriver()
     listOffers = getBotSearchOffer(driver)
-    driver.close()
+    driver.quit()
     return JSONResponse(content={"listOffer": listOffers})
 
 @app.get("/botSearchNewProducts")
 async def demo_get(selectItem: str, categorys: str, options: str):
     driver=createDriver()
     listProducts = getBotSearchNewProducts(driver, selectItem, categorys, options)
-    driver.close()
+    driver.quit()
     return JSONResponse(content={"Products": listProducts})
 
 @app.get("/botSearchJobs")
 async def demo_get(city: str, filter_date: str, filter_job: str):
     driver=createDriver()
     listJobs = getBotSearchJob(driver, city, filter_date, filter_job)
-    driver.close()
+    driver.quit()
     return JSONResponse(content={"Jobs": listJobs})
 
 @app.get("/botSearchViews")
 async def demo_get(name_video: str):
     driver = createDriver()
     views = getBotSearchViews(driver, name_video)
-    driver.close()
+    driver.quit()
     return JSONResponse(content={"Views": views})
 
 @app.post("/backgroundDemo")

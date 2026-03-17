@@ -72,7 +72,6 @@ def getBotSearchOffer(driver: webdriver.Chrome) -> str:
         valor.append(val)
         valPrice+=2
     data['Ktronix']=[referencia, valor]
-    driver.quit()
     return(data)
 
 
@@ -96,7 +95,6 @@ def getBotSearchNewProducts(driver: webdriver.Chrome, selectItem, category, item
     Actions.wait(5)
     items = Actions.get_texts(driver, TottoHome.product_info)
     data = {'Totto': items}
-    driver.quit()
     return data
 
 def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str:
@@ -118,7 +116,6 @@ def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str
     places_cap = Actions.get_texts(driver, CompuVacancies.places)
     how_cap= Actions.get_texts(driver, CompuVacancies.how_Long)
     data ["Computrabajo"]= [jobs_cap,places_cap,how_cap]
-    driver.quit()
     return(data)
 
 def getBotSearchViews(driver: webdriver.Chrome, video_name) -> str:
@@ -143,7 +140,6 @@ def getBotSearchViews(driver: webdriver.Chrome, video_name) -> str:
     video_views = Actions.get_text(driver, YtbVideo.views) if current else 'NO EXISTE'
     print(video_views)
     data['Youtube'] = [video_views]
-    driver.quit()
     return data
 
 
