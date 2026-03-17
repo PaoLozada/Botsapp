@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 from unidecode import unidecode
 from selenium.webdriver.chrome.options import Options
 from page_katro import *
@@ -120,68 +119,28 @@ def getBotSearchJob(driver: webdriver.Chrome,city,filter_date,filter_job) -> str
     data ["Computrabajo"]= [jobs_cap,places_cap,how_cap]
     return(data)
 
-
-
 def getBotSearchViews(driver: webdriver.Chrome, video_name) -> str:
+    Actions.set_window_position(driver, 0, 0)
+    Actions.set_window_size(driver, 1496, 1024)
     data = {}
-    wait = WebDriverWait(driver, 15)
-
+    current=False
     search_query = unidecode(video_name).lower()
-
-    driver.get("https://www.youtube.com/")
-
-    # Manejar popup robusto
-    try:
-        buttons = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//button")))
-        for btn in buttons:
-            if "acept" in btn.text.lower() or "agree" in btn.text.lower():
-                btn.click()
-                break
-    except:
-        pass
-
-    
-    search_box = wait.until(EC.presence_of_element_located(YtbHome.search_box))
-    search_box.send_keys(search_query)
-    search_box.send_keys(Keys.RETURN)
-
-    
-    videos = wait.until(EC.presence_of_all_elements_located(YtbHome.name_video))
-
-    current = False
-
-    for video in videos:
-        title = unidecode(video.text).lower()
-
-        try:
-            url = video.get_attribute("href")
-            if "/shorts/" in url:
-                continue
-        except:
-            continue
-
-        if search_query in title:
-            video.click()
-            current = True
+    Actions.open_url(driver, "https://www.youtube.com/")
+    Actions.wait(5)
+    Actions.send_k(driver, YtbHome.search_box, search_query)
+    Actions.return_k(driver, YtbHome.search_box)
+    Actions.wait(5)
+    videos_current = Actions.get_elements(driver, YtbHome.name_video)
+    for i in videos_current:
+        current_name= unidecode(i.text).lower()
+        if search_query in current_name:
+            current=True
+            i.click()
             break
-
-    if not current:
-        data['Youtube'] = ['NO EXISTE']
-        return data
-
-   
-    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1")))
-
-    
-    for i in range(2):
-        try:
-            views = wait.until(EC.presence_of_element_located(YtbVideo.views)).text
-            data['Youtube'] = [views]
-            return data
-        except:
-            time.sleep(2)
-
-    data['Youtube'] = ['NO EXISTE']
+    Actions.wait(5)
+    video_views = Actions.get_text(driver, YtbVideo.views) if current else 'NO EXISTE'
+    print(video_views)
+    data['Youtube'] = [video_views]
     return data
 
 
