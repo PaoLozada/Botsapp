@@ -2,12 +2,17 @@ FROM cypress/browsers:latest
 
 WORKDIR /app
 
+# Instalar Python y pip
 RUN apt-get update && apt-get install -y python3 python3-pip
 
+# Copiar dependencias
 COPY requirements.txt .
 
+# Instalar dependencias Python
 RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
 
+# Copiar el resto del proyecto
 COPY . .
 
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
+# Ejecutar la app (el puerto lo maneja main.py)
+CMD ["python3", "main.py"]
